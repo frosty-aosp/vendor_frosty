@@ -49,6 +49,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
 endif
 
+# FaceUnlock - Settings RRO
+PRODUCT_PACKAGES += \
+    FaceUnlockSettingsOverlay
+
 # System Allow List
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/clean_cache.sh \
