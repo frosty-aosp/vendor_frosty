@@ -40,6 +40,10 @@ PRODUCT_PACKAGES += \
     libhealthd.frosty
 endif
 
+# FaceUnlock - Settings RRO
+PRODUCT_PACKAGES += \
+    FaceUnlockSettingsOverlay
+
 # System Allow List
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/clean_cache.sh \
