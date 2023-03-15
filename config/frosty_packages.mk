@@ -40,6 +40,15 @@ PRODUCT_PACKAGES += \
     libhealthd.frosty
 endif
 
+# FaceUnlock
+ifneq ($(TARGET_FACE_UNLOCK_OPTOUT), true)
+PRODUCT_PACKAGES += \
+    LMOFaceUnlock
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
+endif
+
 # System Allow List
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/clean_cache.sh \
