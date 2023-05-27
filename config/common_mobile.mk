@@ -1,5 +1,6 @@
 # Inherit common mobile Lineage stuff
 $(call inherit-product, vendor/frosty/config/common.mk)
+include vendor/frosty/config/frosty_packages.mk
 
 # Include AOSP audio files
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)
