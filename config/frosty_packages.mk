@@ -116,5 +116,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/frosty/prebuilt/common/lib/content-types.properties:$(TARGET_COPY_OUT_SYSTEM)/lib/content-types.properties
 
+# LMO APEXes
+PRODUCT_PACKAGES += \
+    com.frosty.microg-stub
+
 # FROSTY overlays
 -include packages/overlays/Frosty/product_packages.mk
