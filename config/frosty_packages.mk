@@ -65,6 +65,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     GameSpace
 
+PRODUCT_PACKAGES += \
+    LMOFreeform \
+    LMOFreeformSidebar
+
 # Extra tools
 PRODUCT_PACKAGES += \
     e2fsck \
