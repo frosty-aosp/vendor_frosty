@@ -5,7 +5,9 @@ PRODUCT_PACKAGES += \
     AicpExtras \
     AppCompatConfig \
     Talk \
-    GoogleVoice
+    GoogleVoice \
+    com.frosty.microg-stub
+
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/app/Talk/Talk.apk \
@@ -42,6 +44,7 @@ endif
 
 # System Allow List
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+    system/apex/com.frosty.microg-stub.apex \
     system/bin/clean_cache.sh \
     system/etc/hosts.frosty_adblock \
     system/etc/permissions/android.software.nfc.beam.xml \
@@ -115,10 +118,6 @@ PRODUCT_COPY_FILES += \
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
     vendor/frosty/prebuilt/common/lib/content-types.properties:$(TARGET_COPY_OUT_SYSTEM)/lib/content-types.properties
-
-# LMO APEXes
-PRODUCT_PACKAGES += \
-    com.frosty.microg-stub
 
 # FROSTY overlays
 -include packages/overlays/Frosty/product_packages.mk
