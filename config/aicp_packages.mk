@@ -137,7 +137,7 @@ PRODUCT_COPY_FILES += \
     vendor/aicp/prebuilt/common/lib/content-types.properties:$(TARGET_COPY_OUT_SYSTEM)/lib/content-types.properties
 
 # AICP overlays
--include packages/overlays/AICP/product_packages.mk
+-include packages/overlays/Frosty/product_packages.mk
 
 # Include AICP props
 include vendor/aicp/config/aicp_props.mk
