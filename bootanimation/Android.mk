@@ -30,7 +30,7 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	@echo "Building bootanimation.zip"
 	@rm -rf $(dir $@)
 	@mkdir -p $(dir $@)
-	$(hide) tar xfp vendor/aicp/bootanimation/bootanimation$(shell shuf -i 0-3 -n 1).tar -C $(INTERMEDIATES)
+	$(hide) tar xfp vendor/frosty/bootanimation/bootanimation$(shell shuf -i 0-3 -n 1).tar -C $(INTERMEDIATES)
 	$(hide) if [ $(TARGET_SCREEN_HEIGHT) -lt $(TARGET_SCREEN_WIDTH) ]; then \
 	    SIZE=$(TARGET_SCREEN_HEIGHT); \
 	else \
@@ -47,7 +47,7 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	done; \
 	mogrify -resize $$RESOLUTION -colors 250 $(INTERMEDIATES)/*/*.jpg; \
 	echo "$$SIZE $$SIZE 30" > $(INTERMEDIATES)/desc.txt; \
-	cat vendor/aicp/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
+	cat vendor/frosty/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
 	$(hide) find $(INTERMEDIATES)/ -type f \( -name "*.jpg" -or -name "*.txt" \) | sort >$@.list
 	$(hide) $(SOONG_ZIP) -L 0 -o $(TARGET_GENERATED_BOOTANIMATION) -C $(INTERMEDIATES) -l $@.list
 

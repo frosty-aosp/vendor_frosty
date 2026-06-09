@@ -23,7 +23,7 @@ LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
 
 LOCAL_MANIFEST_FILE := AndroidManifest.xml
 
-LOCAL_PACKAGE_NAME := AicpThemesStub
+LOCAL_PACKAGE_NAME := FrostyThemesStub
 LOCAL_SDK_VERSION := current
 
 include $(BUILD_PACKAGE)

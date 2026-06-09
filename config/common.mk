@@ -48,8 +48,8 @@ endif
 
 # Backup Tool
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
-    vendor/aicp/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions
+    vendor/frosty/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
+    vendor/frosty/prebuilt/common/bin/backuptool.functions:install/bin/backuptool.functions
 
 PRODUCT_PACKAGES += \
     50-lineage.sh
@@ -59,9 +59,9 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 
 ifneq ($(strip $(AB_OTA_PARTITIONS) $(AB_OTA_POSTINSTALL_CONFIG)),)
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
-    vendor/aicp/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
-    vendor/aicp/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
+    vendor/frosty/prebuilt/common/bin/backuptool_ab.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.sh \
+    vendor/frosty/prebuilt/common/bin/backuptool_ab.functions:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_ab.functions \
+    vendor/frosty/prebuilt/common/bin/backuptool_postinstall.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/backuptool_postinstall.sh
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/backuptool_ab.sh \
@@ -76,11 +76,11 @@ endif
 
 # Lineage-specific broadcast actions whitelist
 PRODUCT_COPY_FILES += \
-    vendor/aicp/config/permissions/lineage-sysconfig.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/lineage-sysconfig.xml
+    vendor/frosty/config/permissions/lineage-sysconfig.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/lineage-sysconfig.xml
 
 # Lineage-specific init rc file
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/etc/init/init.lineage-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-system_ext.rc
+    vendor/frosty/prebuilt/common/etc/init/init.lineage-system_ext.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-system_ext.rc
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -100,7 +100,7 @@ PRODUCT_PACKAGES += \
 
 # This is Lineage!
 PRODUCT_COPY_FILES += \
-    vendor/aicp/config/permissions/org.lineageos.android.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.android.xml
+    vendor/frosty/config/permissions/org.lineageos.android.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/org.lineageos.android.xml
 
 # Enforce privapp-permissions whitelist
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -108,7 +108,7 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 ifneq ($(TARGET_DISABLE_LINEAGE_SDK), true)
 # Lineage SDK
-include vendor/aicp/config/lineage_sdk_common.mk
+include vendor/frosty/config/lineage_sdk_common.mk
 endif
 
 # Do not include art debug targets
@@ -161,7 +161,7 @@ PRODUCT_PACKAGES += \
     Updater
 
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/etc/init/init.lineage-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-updater.rc
+    vendor/frosty/prebuilt/common/etc/init/init.lineage-updater.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.lineage-updater.rc
 
 # Config
 PRODUCT_PACKAGES += \
@@ -202,7 +202,7 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 
 # FRP
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/bin/wipe-frp.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/wipe-frp
+    vendor/frosty/prebuilt/common/bin/wipe-frp.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/wipe-frp
 
 # Openssh
 PRODUCT_PACKAGES += \
@@ -215,7 +215,7 @@ PRODUCT_PACKAGES += \
     start-ssh
 
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
+    vendor/frosty/prebuilt/common/etc/init/init.openssh.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.openssh.rc
 
 # rsync
 PRODUCT_PACKAGES += \
@@ -261,17 +261,17 @@ PRODUCT_PRODUCT_PROPERTIES += \
 endif
 
 # Audio files
-$(call inherit-product, vendor/aicp/audio/audio.mk)
+$(call inherit-product, vendor/frosty/audio/audio.mk)
 
 # SetupWizard
 PRODUCT_PRODUCT_PROPERTIES += \
     setupwizard.theme=glif_v4 \
     setupwizard.feature.day_night_mode_enabled=true
 
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/aicp/overlay/no-rro
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/frosty/overlay/no-rro
 PRODUCT_PACKAGE_OVERLAYS += \
-    vendor/aicp/overlay/common \
-    vendor/aicp/overlay/no-rro
+    vendor/frosty/overlay/common \
+    vendor/frosty/overlay/no-rro
 
 PRODUCT_PACKAGES += \
     DocumentsUIOverlay \
@@ -290,15 +290,15 @@ PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/crowdin/overlay
 PRODUCT_PACKAGE_OVERLAYS += vendor/crowdin/overlay
 
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    vendor/aicp/build/target/product/security/lineage
+    vendor/frosty/build/target/product/security/lineage
 
-#include vendor/aicp/config/version.mk
-include vendor/aicp/config/aicp_version.mk
+#include vendor/frosty/config/version.mk
+include vendor/frosty/config/frosty_version.mk
 
-# Include AICP packages
-include vendor/aicp/config/aicp_packages.mk
+# Include FROSTY packages
+include vendor/frosty/config/frosty_packages.mk
 
--include vendor/aicp-priv/keys/keys.mk
+-include vendor/frosty-priv/keys/keys.mk
 
 -include $(WORKSPACE)/build_env/image-auto-bits.mk
--include vendor/aicp/config/partner_gms.mk
+-include vendor/frosty/config/partner_gms.mk

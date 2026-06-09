@@ -14,4 +14,4 @@
 # limitations under the License.
 
 # Rules for QCOM targets
-include $(TOPDIR)vendor/aicp/build/core/qcom_target.mk
+include $(TOPDIR)vendor/frosty/build/core/qcom_target.mk

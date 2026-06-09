@@ -21,7 +21,7 @@ import sys
 def main(argv):
     reload(sys)
     sys.setdefaultencoding('utf8')
-    original_file = 'vendor/aicp/prebuilt/common/etc/apns-conf.xml'
+    original_file = 'vendor/frosty/prebuilt/common/etc/apns-conf.xml'
 
     if len(argv) == 3:
         output_file_path = argv[1]
