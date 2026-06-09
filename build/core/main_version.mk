@@ -4,25 +4,25 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.build.fingerprint=$(BUILD_FINGERPRINT)
 endif
 
-# AICP System Version
+# Frosty System Version
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.aicp.display.version=$(AICP_VERSION) \
-    ro.aicp.buildtype=$(AICP_BUILDTYPE) \
-    ro.aicp.version.update=$(AICP_BRANCH)-$(VERSION) \
-    ro.modversion=$(AICP_VERSION) \
-    ro.aicp.version=$(VERSION)-$(AICP_BUILDTYPE)
+    ro.frosty.display.version=$(FROSTY_VERSION) \
+    ro.frosty.buildtype=$(FROSTY_BUILDTYPE) \
+    ro.frosty.version.update=$(FROSTY_BRANCH)-$(VERSION) \
+    ro.modversion=$(FROSTY_VERSION) \
+    ro.frosty.version=$(VERSION)-$(FROSTY_BUILDTYPE)
 
 # additions for LOS-recovery
 #PRODUCT_SYSTEM_PROPERTIES += \
 #    ro.lineage.build.version=$(VERSION) \
 #    ro.lineage.version=-$(shell date +%Y%m%d)_$(shell date +%H%M%S)-
 
-# AICP Stats
+# Frosty Stats
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.aicp.branch=$(AICP_BRANCH) \
-    ro.romstats.url=https://stats.aicp-rom.com/ \
-    ro.romstats.name=AICP \
-    ro.romstats.buildtype=$(AICP_BUILDTYPE) \
+    ro.frosty.branch=$(FROSTY_BRANCH) \
+    ro.romstats.url=https://stats.frosty-rom.com/ \
+    ro.romstats.name=Frosty \
+    ro.romstats.buildtype=$(FROSTY_BUILDTYPE) \
     ro.romstats.version=$(VERSION) \
     ro.romstats.tframe=1 \
     ro.romstats.askfirst=1

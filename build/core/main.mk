@@ -1,5 +1,5 @@
-# Include AICP versions
-include $(TOPDIR)vendor/aicp/build/core/main_version.mk
+# Include Frosty versions
+include $(TOPDIR)vendor/frosty/build/core/main_version.mk
 
 # Override product info for Google Play Services and SafetyNet
 ifeq ($(PRODUCT_OVERRIDE_INFO),true)

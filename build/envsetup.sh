@@ -1,6 +1,6 @@
-function __print_aicp_functions_help() {
+function __print_frosty_functions_help() {
 cat <<EOF
-Additional AICP functions:
+Additional Frosty functions:
 - cout:            Changes directory to out.
 - mmp:             Builds all of the modules in the current directory and pushes them to the device.
 - mmap:            Builds all of the modules in the current directory and its dependencies, then pushes the package to the device.
@@ -10,7 +10,7 @@ Additional AICP functions:
 - aicpremote:   Add git remote for AICP Gerrit Review.
 - aospremote:      Add git remote for matching AOSP repository.
 - cafremote:       Add git remote for matching CodeAurora repository.
-- githubremote:    Add git remote for AICP Github.
+- githubremote:    Add git remote for Frosty Github.
 - mka:             Builds using SCHED_BATCH on all processors.
 - mkap:            Builds the module(s) using mka and pushes them to the device.
 - cmka:            Cleans and builds using mka.
@@ -67,12 +67,12 @@ function check_product()
         echo "Couldn't locate the top of the tree. Try setting TOP." >&2
         return
     fi
-    if (echo -n $1 | grep -q -e "^aicp_") ; then
-        AICP_BUILD=$(echo -n $1 | sed -e 's/^aicp_//g')
+    if (echo -n $1 | grep -q -e "^frosty_") ; then
+        FROSTY_BUILD=$(echo -n $1 | sed -e 's/^frosty_//g')
     else
-        AICP_BUILD=
+        FROSTY_BUILD=
     fi
-    export AICP_BUILD
+    export FROSTY_BUILD
 
         TARGET_PRODUCT=$1 \
         TARGET_RELEASE=$2 \
@@ -111,7 +111,7 @@ function breakfast()
 {
     target=$1
     local variant=$2
-    source ${ANDROID_BUILD_TOP}/vendor/aicp/vars/aosp_target_release
+    source ${ANDROID_BUILD_TOP}/vendor/frosty/vars/aosp_target_release
 
     if [ $# -eq 0 ]; then
         # No arguments, so let's have the full menu
@@ -126,7 +126,7 @@ function breakfast()
                 variant="userdebug"
             fi
 
-            lunch aicp_$target-$aosp_target_release-$variant
+            lunch frosty_$target-$aosp_target_release-$variant
         fi
     fi
     return $?
@@ -137,7 +137,7 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        ZIPPATH=`ls -tr "$OUT"/aicp_*.zip | tail -1`
+        ZIPPATH=`ls -tr "$OUT"/frosty_*.zip | tail -1`
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
             return 1
@@ -145,13 +145,13 @@ function eat()
         echo "Waiting for device..."
         adb wait-for-device-recovery
         echo "Found device"
-        if (adb shell getprop ro.lineage.device | grep -q "$AICP_BUILD"); then
+        if (adb shell getprop ro.lineage.device | grep -q "$FROSTY_BUILD"); then
             echo "Rebooting to sideload for install"
             adb reboot sideload-auto-reboot
             adb wait-for-sideload
             adb sideload $ZIPPATH
         else
-            echo "The connected device does not appear to be $AICP_BUILD, run away!"
+            echo "The connected device does not appear to be $FROSTY_BUILD, run away!"
         fi
         return $?
     else
@@ -393,7 +393,7 @@ function githubremote()
 
     local PROJECT=$(echo $REMOTE | sed -e "s#platform/#android/#g; s#/#_#g")
 
-    git remote add github https://github.com/AICP/$PROJECT
+    git remote add github https://github.com/frosty-aosp/$PROJECT
     echo "Remote 'github' created"
 }
 
@@ -452,14 +452,14 @@ function installboot()
     adb wait-for-device-recovery
     adb root
     adb wait-for-device-recovery
-    if (adb shell getprop ro.lineage.device | grep -q "$AICP_BUILD");
+    if (adb shell getprop ro.lineage.device | grep -q "$FROSTY_BUILD");
     then
         adb push $OUT/boot.img /cache/
         adb shell dd if=/cache/boot.img of=$PARTITION
         adb shell rm -rf /cache/boot.img
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $AICP_BUILD, run away!"
+        echo "The connected device does not appear to be $FROSTY_BUILD, run away!"
     fi
 }
 
@@ -490,14 +490,14 @@ function installrecovery()
     adb wait-for-device-recovery
     adb root
     adb wait-for-device-recovery
-    if (adb shell getprop ro.lineage.device | grep -q "$AICP_BUILD");
+    if (adb shell getprop ro.lineage.device | grep -q "$FROSTY_BUILD");
     then
         adb push $OUT/recovery.img /cache/
         adb shell dd if=/cache/recovery.img of=$PARTITION
         adb shell rm -rf /cache/recovery.img
         echo "Installation complete."
     else
-        echo "The connected device does not appear to be $AICP_BUILD, run away!"
+        echo "The connected device does not appear to be $FROSTY_BUILD, run away!"
     fi
 }
 
@@ -852,7 +852,7 @@ function dopush()
         echo "Device Found."
     fi
 
-    if (adb shell getprop ro.lineage.device | grep -q "$AICP_BUILD") || [ "$FORCE_PUSH" = "true" ];
+    if (adb shell getprop ro.lineage.device | grep -q "$FROSTY_BUILD") || [ "$FORCE_PUSH" = "true" ];
     then
     # retrieve IP and PORT info if we're using a TCP connection
     TCPIPPORT=$(adb devices \
@@ -971,7 +971,7 @@ EOF
     rm -f $OUT/.log
     return 0
     else
-        echo "The connected device does not appear to be $AICP_BUILD, run away!"
+        echo "The connected device does not appear to be $FROSTY_BUILD, run away!"
     fi
 }
 
@@ -996,7 +996,7 @@ function fixup_common_out_dir() {
     common_out_dir=$(_get_build_var_cached OUT_DIR)/target/common
     target_device=$(_get_build_var_cached TARGET_DEVICE)
     common_target_out=common-${target_device}
-    if [ ! -z $AICP_FIXUP_COMMON_OUT ]; then
+    if [ ! -z $FROSTY_FIXUP_COMMON_OUT ]; then
         if [ -d ${common_out_dir} ] && [ ! -L ${common_out_dir} ]; then
             mv ${common_out_dir} ${common_out_dir}-${target_device}
             ln -s ${common_target_out} ${common_out_dir}
@@ -1058,8 +1058,8 @@ function build_kernel() {
         echo "Syncing ${KERNEL_BUILD_TOP}"
         local target_kernel_manifest=$(echo android_kernel_${target_kernel_source}_manifest | tr / _)
         local repo_init_args=("-b" "${lineage_version}")
-        if [ -n "${AICP_MIRROR}" ]; then
-            repo_init_args+=("--reference" "${AICP_MIRROR}")
+        if [ -n "${FROSTY_MIRROR}" ]; then
+            repo_init_args+=("--reference" "${FROSTY_MIRROR}")
         fi
         if [ -n "${REPO_VERSION}" ]; then
             repo_init_args+=("--repo-rev" "${REPO_VERSION}")
@@ -1100,7 +1100,7 @@ function build_kernel() {
 }
 
 function sync_all_kernels() {
-    source ${ANDROID_BUILD_TOP}/vendor/aicp/vars/kernel_platform
+    source ${ANDROID_BUILD_TOP}/vendor/frosty/vars/kernel_platform
 
     for kver in "${!kernel_branches[@]}"; do
         BRANCH="${kernel_branches[$kver]}"

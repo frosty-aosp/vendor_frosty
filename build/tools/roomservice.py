@@ -45,14 +45,14 @@ except IndexError:
 
 if not depsonly:
     print(
-        f'Device {device} not found. Attempting to retrieve device repository from AICP Github (http://github.com/AICP).'
+        f'Device {device} not found. Attempting to retrieve device repository from frosty-devices Github (http://github.com/frosty-devices).'
     )
 
 repositories = []
 
 if not depsonly:
     githubreq = urllib.request.Request(
-        'https://raw.githubusercontent.com/AICP/mirror/main/default.xml'
+        'https://raw.githubusercontent.com/frosty-aosp/mirror/main/default.xml'
     )
     try:
         result = ElementTree.fromstring(
@@ -169,6 +169,13 @@ def is_in_manifest(tag, attr, attr_value):
     except Exception:
         lm = ElementTree.Element('manifest')
 
+    # ... and the frosty snippet
+    try:
+        lm = ElementTree.parse('.repo/manifests/snippets/frosty.xml')
+        lm = lm.getroot()
+    except Exception:
+        lm = ElementTree.Element('manifest')
+
     for localpath in lm.findall(tag):
         if localpath.get(attr) == attr_value:
             return True
@@ -219,7 +226,7 @@ def add_to_manifest(dependencies):
                 'project',
                 attrib={
                     'path': repo_target,
-                    'remote': 'aicp',
+                    'remote': 'frosty-devices',
                     'name': f'{repo_name}',
                     'revision': repo_revision,
                 },
@@ -253,7 +260,7 @@ def add_to_manifest(dependencies):
 
 def fetch_dependencies(repo_path):
     print(f'Looking for dependencies in {repo_path}')
-    dependencies_path = repo_path + '/aicp.dependencies'
+    dependencies_path = repo_path + '/frosty.dependencies'
     syncable_repos = []
     verify_repos = []
 
@@ -369,10 +376,10 @@ if depsonly:
 
 else:
     for repo_name in repositories:
-        if re.match(r'^AICP/device_[^_]*_' + device, repo_name):
+        if re.match(r'^frosty-devices/device_[^_]*_' + device, repo_name):
             print(f'Found repository: {repo_name}')
 
-            manufacturer = repo_name.replace('AICP/device_', '').replace(
+            manufacturer = repo_name.replace('frosty-devices/device_', '').replace(
                 '_' + device, ''
             )
             repo_path = f'device/{manufacturer}/{device}'
@@ -400,5 +407,5 @@ else:
             sys.exit()
 
 print(
-    f'Repository for {device} not found in the AICP Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml.'
+    f'Repository for {device} not found in the frosty-devices Github repository list. If this is in error, you may need to manually add it to your local_manifests/roomservice.xml.'
 )

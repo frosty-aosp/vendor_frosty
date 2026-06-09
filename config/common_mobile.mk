@@ -1,12 +1,12 @@
 # Inherit common mobile Lineage stuff
-$(call inherit-product, vendor/aicp/config/common.mk)
+$(call inherit-product, vendor/frosty/config/common.mk)
 
 # Include AOSP audio files
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AudioPackage14.mk)
-include vendor/aicp/config/aosp_audio.mk
+include vendor/frosty/config/aosp_audio.mk
 
 # Include Lineage audio files
-include vendor/aicp/config/lineage_audio.mk
+include vendor/frosty/config/lineage_audio.mk
 
 # Default notification/alarm sounds
 #PRODUCT_PRODUCT_PROPERTIES += \

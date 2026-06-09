@@ -1,13 +1,13 @@
-PRODUCT_BRAND ?= AICP
+PRODUCT_BRAND ?= Frosty
 
-# AICP packages
+# Frosty packages
 PRODUCT_PACKAGES += \
     AicpExtras \
     TilesWallpaper
 
-# AICP Ad-block
+# Frosty Ad-block
 PRODUCT_PACKAGES += \
-    hosts.aicp_adblock
+    hosts.frosty_adblock
 
 # A/B OTA Optimization
 ifneq ($(AB_OTA_PARTITIONS),)
@@ -24,20 +24,20 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-ifeq ($(WITH_AICP_CHARGER),true)
+ifeq ($(WITH_FROSTY_CHARGER),true)
 PRODUCT_PACKAGES += \
-    aicp_charger_res_images \
+    frosty_charger_res_images \
     font_log.png \
-    libhealthd.aicp
+    libhealthd.frosty
 endif
 
 # System Allow List
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/clean_cache.sh \
-    system/etc/hosts.aicp_adblock \
+    system/etc/hosts.frosty_adblock \
     system/etc/permissions/android.software.nfc.beam.xml \
     system/etc/permissions/android.software.sip.voip.xml \
-    system/etc/permissions/privapp-permissions-aicp.xml \
+    system/etc/permissions/privapp-permissions-frosty.xml \
     system/etc/permissions/privapp_whitelist_org.omnirom.omnijaws-ext.xml \
     system/lib/content-types.properties \
     system/lib/libsepol.so \
@@ -88,10 +88,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 endif
 
 # Include AOSP audio files
-include vendor/aicp/config/aosp_audio.mk
+include vendor/frosty/config/aosp_audio.mk
 
 # Google sounds
-include vendor/aicp/google/GoogleAudio.mk
+include vendor/frosty/google/GoogleAudio.mk
 
 # TWRP
 ifeq ($(BUILD_TWRP),true)
@@ -102,31 +102,31 @@ endif
 
 # Clean cache script
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/bin/clean_cache.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/clean_cache.sh
+    vendor/frosty/prebuilt/common/bin/clean_cache.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/clean_cache.sh
 
 # system mount
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/bin/system-mount.sh:install/bin/system-mount.sh
+    vendor/frosty/prebuilt/common/bin/system-mount.sh:install/bin/system-mount.sh
 
 # Don't compile SystemUITests
 EXCLUDE_SYSTEMUI_TESTS := true
 
-# AICP permissions
+# Frosty permissions
 PRODUCT_COPY_FILES += \
-    vendor/aicp/config/permissions/privapp-permissions-aicp-system.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-aicp.xml \
-    vendor/aicp/config/permissions/privapp-permissions-aicp-system-ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-aicp.xml \
-    vendor/aicp/config/permissions/privapp-permissions-aicp-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-aicp.xml
+    vendor/frosty/config/permissions/privapp-permissions-frosty-system.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-frosty.xml \
+    vendor/frosty/config/permissions/privapp-permissions-frosty-system-ext.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-frosty.xml \
+    vendor/frosty/config/permissions/privapp-permissions-frosty-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-frosty.xml
 
 # Audio files
-$(call inherit-product, vendor/aicp/audio/audio.mk)
+$(call inherit-product, vendor/frosty/audio/audio.mk)
 
 # Font files
 PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,vendor/aicp/prebuilt/common/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts)
+    $(call find-copy-subdir-files,*,vendor/frosty/prebuilt/common/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts)
 
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
-    vendor/aicp/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
+    vendor/frosty/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
 
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
@@ -134,10 +134,10 @@ PRODUCT_COPY_FILES += \
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
-    vendor/aicp/prebuilt/common/lib/content-types.properties:$(TARGET_COPY_OUT_SYSTEM)/lib/content-types.properties
+    vendor/frosty/prebuilt/common/lib/content-types.properties:$(TARGET_COPY_OUT_SYSTEM)/lib/content-types.properties
 
-# AICP overlays
+# FROSTY overlays
 -include packages/overlays/Frosty/product_packages.mk
 
-# Include AICP props
-include vendor/aicp/config/aicp_props.mk
+# Include FROSTY props
+include vendor/frosty/config/frosty_props.mk

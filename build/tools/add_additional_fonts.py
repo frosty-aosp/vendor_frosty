@@ -19,7 +19,7 @@ import sys
 
 
 def main(argv):
-    original_file = "vendor/aicp/prebuilt/common/etc/fonts_customization.xml"
+    original_file = "vendor/frosty/prebuilt/common/etc/fonts_customization.xml"
 
     if len(argv) >= 3:
         output_file_path = argv[1]
