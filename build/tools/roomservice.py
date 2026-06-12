@@ -121,7 +121,7 @@ def get_default_revision():
 #    d = m.findall('default')[0]
 #    r = d.get('revision')
 #    return r.replace('refs/heads/', '').replace('refs/tags/', '')
-    return 'w16.2'
+    return 'ananas'
 
 
 def get_from_manifest(devicename):
@@ -226,7 +226,7 @@ def add_to_manifest(dependencies):
                 'project',
                 attrib={
                     'path': repo_target,
-                    'remote': 'frosty-devices',
+                    'remote': 'frosty',
                     'name': f'{repo_name}',
                     'revision': repo_revision,
                 },
@@ -288,7 +288,7 @@ def fetch_dependencies(repo_path):
                     fetch_list.append(dependency)
                     syncable_repos.append(dependency['target_path'])
                     if 'branch' not in dependency:
-                        if dependency.get('remote', 'github') == 'github':
+                        if dependency.get('remote', 'frosty') == 'frosty':
                             dependency['branch'] = (
                                 get_default_or_fallback_revision(
                                     dependency['repository']
