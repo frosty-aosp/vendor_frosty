@@ -2,8 +2,7 @@ PRODUCT_BRAND ?= Frosty
 
 # Frosty packages
 PRODUCT_PACKAGES += \
-    AicpExtras \
-    TilesWallpaper
+    AicpExtras
 
 # Frosty Ad-block
 PRODUCT_PACKAGES += \
