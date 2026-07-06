@@ -204,6 +204,10 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 PRODUCT_COPY_FILES += \
     vendor/frosty/prebuilt/common/bin/wipe-frp.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/wipe-frp
 
+# Hide Magisk etc
+PRODUCT_COPY_FILES += \
+    vendor/frosty/prebuilt/common/etc/init/init.hide-socket.rc:$(TARGET_COPY_OUT_PRODUCT)/etc/init/init.hide-socket.rc
+
 # Openssh
 PRODUCT_PACKAGES += \
     scp \
