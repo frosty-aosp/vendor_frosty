@@ -2,7 +2,8 @@ PRODUCT_BRAND ?= Frosty
 
 # Frosty packages
 PRODUCT_PACKAGES += \
-    AicpExtras
+    AicpExtras \
+    GmsCompat
 
 # Frosty Ad-block
 PRODUCT_PACKAGES += \
