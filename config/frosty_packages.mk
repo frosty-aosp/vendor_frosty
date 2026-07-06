@@ -5,6 +5,13 @@ PRODUCT_PACKAGES += \
     AicpExtras \
     GmsCompat
 
+PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+    system/app/GmsCompat/GmsCompat.apk \
+    system/app/GmsCompatConfig/GmsCompatConfig.apk \
+    system/app/GmsCompatLib/GmsCompatLib.apk \
+    system/etc/default-permissions/app.grapheneos.gmscompat.xml \
+    system/etc/sysconfig/app.grapheneos.gmscompat.xml
+
 # Frosty Ad-block
 PRODUCT_PACKAGES += \
     hosts.frosty_adblock
