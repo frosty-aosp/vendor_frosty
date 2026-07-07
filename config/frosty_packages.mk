@@ -3,7 +3,9 @@ PRODUCT_BRAND ?= Frosty
 # Frosty packages
 PRODUCT_PACKAGES += \
     AicpExtras \
-    GmsCompat
+    GmsCompat \
+    AppCompatConfig \
+    GmsCompatConfig
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/app/GmsCompat/GmsCompat.apk \
