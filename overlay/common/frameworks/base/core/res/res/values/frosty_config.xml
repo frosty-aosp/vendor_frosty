@@ -37,11 +37,6 @@
     <!-- Amount of time in ms the user needs to press the relevant keys to trigger the screenshot chord -->
     <integer name="config_screenshotChordKeyTimeout">0</integer>
 
-    <!-- The package name for the system's app prediction service.
-         This service must be trusted, as it can be activated without explicit consent of the user.
-         Example: "com.android.intelligence/.AppPredictionService" -->
-    <string name="config_defaultAppPredictionService">com.android.apppredictionservice/com.android.apppredictionservice.PredictionService</string>
-
     <!-- The component name for the system-wide captions manager service.
          This service must be trusted, as the system binds to it and keeps it running.
          Example: "com.android.captions/.SystemCaptionsManagerService" -->
