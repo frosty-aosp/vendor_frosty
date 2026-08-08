@@ -51,7 +51,6 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib/content-types.properties \
     system/lib/libsepol.so \
     system/lib64/libsepol.so \
-    system/priv-app/AppPredictionService/AppPredictionService.apk \
     system/xbin/wget
 
 # OnDeviceAppPrediction
