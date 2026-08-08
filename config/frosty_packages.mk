@@ -53,10 +53,6 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib64/libsepol.so \
     system/xbin/wget
 
-# OnDeviceAppPrediction
-PRODUCT_PACKAGES += \
-    AppPredictionService
-
 # OmniJaws
 PRODUCT_PACKAGES += \
     OmniJaws
