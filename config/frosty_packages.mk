@@ -72,27 +72,11 @@ PRODUCT_PACKAGES += \
     tune2fs \
     wget
 
-# Audio
-LOCAL_PATH := frameworks/base/data/sounds
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/Alarm_Classic.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Alarm_Classic.ogg \
-    $(LOCAL_PATH)/alarms/ogg/Krypton.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Krypton-old.ogg \
-    $(LOCAL_PATH)/alarms/ogg/Neon.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Neon-old.ogg \
-    $(LOCAL_PATH)/alarms/ogg/Osmium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Osmium-old.ogg \
-    $(LOCAL_PATH)/alarms/ogg/Oxygen.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Oxygen-old.ogg \
-    $(LOCAL_PATH)/alarms/ogg/Platinum.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Platinum-old.ogg
-
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.ota.allow_downgrade=true
-
 # AOSP recovery flashing
 ifeq ($(TARGET_USES_AOSP_RECOVERY),true)
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.sys.recovery_update=true
 endif
-
-# Include AOSP audio files
-include vendor/frosty/config/aosp_audio.mk
 
 # Google sounds
 include vendor/frosty/google/GoogleAudio.mk
@@ -127,14 +111,6 @@ $(call inherit-product, vendor/frosty/audio/audio.mk)
 # Font files
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,vendor/frosty/prebuilt/common/fonts,$(TARGET_COPY_OUT_PRODUCT)/fonts)
-
-# Enable Android Beam on all targets
-PRODUCT_COPY_FILES += \
-    vendor/frosty/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
-
-# Enable SIP+VoIP on all targets
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.sip.voip.xml
 
 # Copy over added mimetype supported in libcore.net.MimeUtils
 PRODUCT_COPY_FILES += \
