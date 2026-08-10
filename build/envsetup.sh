@@ -411,20 +411,6 @@ function privateremote()
     echo "Remote 'private' created"
 }
 
-function privateremote()
-{
-    if ! git rev-parse --git-dir &> /dev/null
-    then
-        echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
-        return 1
-    fi
-    git remote rm private 2> /dev/null
-    local PROJECT=$(git config --get remote.github.projectname)
-
-    git remote add private git@github.com:$PROJECT.git
-    echo "Remote 'private' created"
-}
-
 function installboot()
 {
     if [ ! -e "$OUT/recovery/root/system/etc/recovery.fstab" ];
@@ -1132,3 +1118,6 @@ function sync_all_kernels() {
         fi
     done
 }
+
+# Frosty
+source ${ANDROID_BUILD_TOP}/packages/modules/microG/upstream.sh
