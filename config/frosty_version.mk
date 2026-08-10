@@ -50,13 +50,7 @@ endif
 
 # Frosty Version
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.frosty.version=$(FROSTY_VERSION) \
-    ro.frosty.build_version=$(FROSTY_BUILD_VERSION) \
+    ro.frosty.version=$(VERSION) \
+    ro.frosty.build_version=$(FROSTY_VERSION) \
     ro.frosty.releasetype=$(FROSTY_BUILDTYPE) \
     ro.frosty.branch=$(FROSTY_BRANCH)
-
-# additions for LOS-recovery
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.lineage.display.version=$(VERSION)-$(shell date -u +%Y%m%d)-${FROSTY_BUILDTYPE}-$(DEVICE_NAME) \
-    ro.lineage.version=$(VERSION)-$(shell date -u +%Y%m%d)-${FROSTY_BUILDTYPE}-$(DEVICE_NAME)
-
