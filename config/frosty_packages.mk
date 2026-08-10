@@ -142,6 +142,3 @@ PRODUCT_COPY_FILES += \
 
 # FROSTY overlays
 -include packages/overlays/Frosty/product_packages.mk
-
-# Include FROSTY props
-include vendor/frosty/config/frosty_props.mk
