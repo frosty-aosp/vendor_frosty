@@ -47,8 +47,6 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/apex/com.frosty.microg-stub.apex \
     system/bin/clean_cache.sh \
     system/etc/hosts.frosty_adblock \
-    system/etc/permissions/android.software.nfc.beam.xml \
-    system/etc/permissions/android.software.sip.voip.xml \
     system/etc/permissions/privapp-permissions-frosty.xml \
     system/etc/permissions/privapp_whitelist_org.omnirom.omnijaws-ext.xml \
     system/lib/content-types.properties \
