@@ -46,7 +46,7 @@ $(TARGET_GENERATED_BOOTANIMATION): $(SOONG_ZIP)
 	    mkdir -p $(INTERMEDIATES)/part$$part_cnt; \
 	done; \
 	mogrify -resize $$RESOLUTION -colors 250 $(INTERMEDIATES)/*/*.jpg; \
-	echo "$$SIZE $$SIZE 30" > $(INTERMEDIATES)/desc.txt; \
+	echo "$$SIZE $$SIZE 3" > $(INTERMEDIATES)/desc.txt; \
 	cat vendor/frosty/bootanimation/desc.txt >> $(INTERMEDIATES)/desc.txt
 	$(hide) find $(INTERMEDIATES)/ -type f \( -name "*.jpg" -or -name "*.txt" \) | sort >$@.list
 	$(hide) $(SOONG_ZIP) -L 0 -o $(TARGET_GENERATED_BOOTANIMATION) -C $(INTERMEDIATES) -l $@.list
