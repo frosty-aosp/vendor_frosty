@@ -8,6 +8,7 @@ Additional Frosty functions:
 - aicpgerrit:   A Git wrapper that fetches/pushes patch from/to AICP Gerrit Review.
 - aicprebase:   Rebase a Gerrit change and push it again.
 - aicpremote:   Add git remote for AICP Gerrit Review.
+- frostyremote: Add git remote for Frosty development.
 - aospremote:      Add git remote for matching AOSP repository.
 - cafremote:       Add git remote for matching CodeAurora repository.
 - githubremote:    Add git remote for Frosty Github.
@@ -273,6 +274,39 @@ function dddclient()
   else
        echo "Unable to determine build system output dir."
    fi
+}
+
+function frostyremote()
+{
+    if ! git rev-parse --git-dir &> /dev/null
+    then
+        echo ".git directory not found. Please run this from the root directory of the Android repository you wish to set up."
+        return 1
+    fi
+    git remote rm origin 2> /dev/null
+    local REMOTE=$(git config --get remote.frosty.projectname)
+    local FROSTY="true"
+    if [ -z "$REMOTE" ]
+    then
+        REMOTE=$(git config --get remote.aosp.projectname)
+        FROSTY="false"
+    fi
+    if [ -z "$REMOTE" ]
+    then
+        REMOTE=$(git config --get remote.clo.projectname)
+        FROSTY="false"
+    fi
+
+    if [ $FROSTY = "false" ]
+    then
+        local PROJECT=$(echo $REMOTE | sed -e "s|platform/||g; s|/|_|g")
+        local PFX="frosty-aosp/"
+    else
+        local PROJECT=$REMOTE
+    fi
+
+    git remote add origin git@github.com:$PFX$PROJECT
+    echo "Remote 'origin' created"
 }
 
 function aicpremote()
