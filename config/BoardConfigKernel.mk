@@ -59,6 +59,7 @@
 #                                          TARGET_KERNEL_CROSS_COMPILE_PREFIX
 #                                          is in PATH
 #   USE_CCACHE                         = Enable ccache (global Android flag)
+#   USE_RBE                            = Enable RBE (global Android flag)
 
 include vendor/frosty/build/core/utils.mk
 
@@ -111,6 +112,30 @@ ifneq ($(USE_CCACHE),)
         # Android 10+ deprecates use of a build ccache. Only system installed ones are now allowed
         CCACHE_BIN := $(CCACHE_EXEC)
     endif
+endif
+
+# build/make/core/rbe.mk is only read while dumping the product config, so the
+# rewrapper flags have to be recreated here
+KERNEL_RBE_WRAPPER :=
+ifneq ($(filter-out false,$(USE_REWRAPPER)),)
+    # An out dir outside of the tree can't be a remote input or output
+    ifneq ($(filter $(BUILD_TOP)/%,$(abspath $(OUT_DIR))),)
+        KERNEL_RBE_WRAPPER := $(abspath $(if $(RBE_DIR),$(RBE_DIR),prebuilts/remoteexecution-client/live))/rewrapper
+        KERNEL_RBE_WRAPPER += --labels=type=compile,lang=cpp,compiler=clang
+        KERNEL_RBE_WRAPPER += --env_var_allowlist=PWD
+        KERNEL_RBE_WRAPPER += --exec_strategy=$(if $(RBE_CXX_EXEC_STRATEGY),$(RBE_CXX_EXEC_STRATEGY),local)
+        KERNEL_RBE_WRAPPER += --compare=$(if $(RBE_CXX_COMPARE),$(RBE_CXX_COMPARE),false)
+        ifneq ($(RBE_platform),)
+            KERNEL_RBE_WRAPPER += --platform=$(RBE_platform),Pool=$(if $(RBE_CXX_POOL),$(RBE_CXX_POOL),default)
+        endif
+    endif
+endif
+
+# ccache can't cache anything behind another wrapper, so it gives way to RBE
+ifneq ($(KERNEL_RBE_WRAPPER),)
+    KERNEL_CC_WRAPPER := $(BUILD_TOP)/vendor/frosty/build/tools/kernel_rbe_cc.sh
+else
+    KERNEL_CC_WRAPPER := $(CCACHE_BIN)
 endif
 
 # Clear this first to prevent accidental poisoning from env
@@ -199,9 +224,9 @@ ifneq ($(KERNEL_NO_GCC), true)
 
     ifeq ($(KERNEL_ARCH),arm64)
         # Add 32-bit GCC to PATH so that arm-linux-androidkernel-as is available for CONFIG_COMPAT_VDSO
-        TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$(KERNEL_TOOLCHAIN_arm):$$PATH
+        TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$(BUILD_TOP)/prebuilts/build-tools/$(HOST_PREBUILT_TAG)/bin:$(KERNEL_TOOLCHAIN_arm):$$PATH
     else
-        TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$$PATH
+        TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$(BUILD_TOP)/prebuilts/build-tools/$(HOST_PREBUILT_TAG)/bin:$$PATH
     endif
 
     # Set the full path to the clang command and LLVM binutils
@@ -225,7 +250,7 @@ else
     KERNEL_MAKE_FLAGS += HOSTCFLAGS="$(KERNEL_HOST_C_LD_FLAGS_SYSROOT) -I$(BUILD_TOP)/prebuilts/kernel-build-tools/linux-x86/include"
     KERNEL_MAKE_FLAGS += HOSTLDFLAGS="$(KERNEL_HOST_C_LD_FLAGS_SYSROOT) -Wl,-rpath,$(BUILD_TOP)/prebuilts/kernel-build-tools/linux-x86/lib64 -L $(BUILD_TOP)/prebuilts/kernel-build-tools/linux-x86/lib64 -fuse-ld=lld --rtlib=compiler-rt"
 
-    TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$(TARGET_KERNEL_CLANG_PATH)/bin:$(BUILD_TOP)/prebuilts/rust/$(HOST_PREBUILT_TAG)/$(TARGET_KERNEL_RUST_VERSION)/bin:$(BUILD_TOP)/prebuilts/clang-tools/$(HOST_PREBUILT_TAG)/bin:$$PATH
+    TOOLS_PATH_OVERRIDE += PATH=$(BUILD_TOP)/prebuilts/tools-frosty/$(HOST_PREBUILT_TAG)/bin:$(BUILD_TOP)/prebuilts/build-tools/$(HOST_PREBUILT_TAG)/bin:$(TARGET_KERNEL_CLANG_PATH)/bin:$(BUILD_TOP)/prebuilts/rust/$(HOST_PREBUILT_TAG)/$(TARGET_KERNEL_RUST_VERSION)/bin:$(BUILD_TOP)/prebuilts/clang-tools/$(HOST_PREBUILT_TAG)/bin:$$PATH
 endif
 
 # Set DTBO image locations so the build system knows to build them
