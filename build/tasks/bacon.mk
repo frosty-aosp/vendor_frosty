@@ -23,7 +23,7 @@ SHA256 := prebuilts/build-tools/path/$(HOST_PREBUILT_TAG)/sha256sum
 $(FROSTY_TARGET_PACKAGE): $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(FROSTY_TARGET_PACKAGE)
 	$(hide) $(SHA256) $(FROSTY_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(FROSTY_TARGET_PACKAGE).sha256sum
-	$(hide) ./vendor/lineage/scripts/generate_json_build_info.sh $(FROSTY_TARGET_PACKAGE)
+	$(hide) ./vendor/frosty/build/tools/generate_json_build_info.sh $(FROSTY_TARGET_PACKAGE)
 	@echo "Package Complete: $(FROSTY_TARGET_PACKAGE)" >&2
 
 .PHONY: bacon

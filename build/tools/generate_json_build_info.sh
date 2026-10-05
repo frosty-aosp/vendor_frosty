@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 if [ "$1" ]
 then
   file_path=$1
   file_name=$(basename "$file_path")
   DEVICE=$(echo $TARGET_PRODUCT | cut -d "_" -f2)
-  if [ -f $file_path && $FROSTY_BUILDTYPE != "UNOFFICIAL"]; then
+  if [[ -f $file_path && $FROSTY_BUILDTYPE != "UNOFFICIAL" ]]; then
     file_size=$(stat -c%s $file_path)
     id=$(cat "$file_path.sha256sum" | cut -d' ' -f1)
     datetime=$(grep ro\.build\.date\.utc ./out/target/product/$DEVICE/system/build.prop | cut -d= -f2);
